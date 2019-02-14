@@ -174,7 +174,7 @@ public class PersistentHashedIndex implements Index {
             dictionaryFile.seek( ptr );
             long dictPointer = dictionaryFile.getFilePointer();
             long dictLength = dictionaryFile.length();
-            if(dictPointer+20<dictLength) {
+            if(dictPointer+16<dictLength) {
                 entry.collision = dictionaryFile.readInt();
                 //char c1 = dictionaryFile.readChar();
                 entry.dataPointer = dictionaryFile.readLong();
@@ -211,7 +211,7 @@ public class PersistentHashedIndex implements Index {
             hash+=TABLESIZE;
         }
         //hash = Math.round(hash/10)*20;
-        hash = hash*20;
+        hash = hash*16;
         return hash;
     }
 
@@ -403,11 +403,12 @@ public class PersistentHashedIndex implements Index {
         }
         //Write string representation to Data-file
         int datalen = writeData(sb.toString(),free);
-        //Increment file position
-        if (datalen>0) free = free+datalen;
+
         Entry e = new Entry();
         e.collision = 2;
         e.dataPointer = free;
+        //Increment file position
+        if (datalen>0) free = free+datalen;
         //e.word = word;
         e.datalen = datalen;
         //Write entry with saved Data-file pointer to Dictionary
