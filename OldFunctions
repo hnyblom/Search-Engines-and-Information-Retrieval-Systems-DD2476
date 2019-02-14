@@ -1,0 +1,167 @@
+/**
+     Entry readOld(long ptr, String token) {
+        Entry e = new Entry();
+        //byte[] b={};
+        Entry entry = readDict(ptr);
+
+        if((line != null) && !(line.substring(1, 2).equals("\u0000"))) {
+
+            String dataParts = line.trim();
+            // String[] dataParts = line.split("[\\s:]+");
+            String[] dataPartsList = dataParts.split("\\*");
+
+            if(dataPartsList[0]!=token){
+                System.err.println("Not token!");
+            }
+
+            if (!(dataPartsList.length == 0)) {
+                if(!checkCollision(dataPartsList, token)){
+                    String dp = dataPartsList[1];
+                    dp = dp.replaceAll("\u0000", "");
+                    long point = Long.parseLong(dp);
+                    e.dataPointer = point;
+                    e.word = dataPartsList[0];
+                }
+            }
+        }
+        return e;
+    }
+*/
+
+/**
+Entry repositionOld(Entry entry){
+        System.err.println( "Reposition" );
+        long newPtr = 0;
+        while(true) {
+            entry.hashOffset = entry.hashOffset + 10;
+            newPtr = Math.abs((entry.word.hashCode() + entry.hashOffset) % TABLESIZE);
+
+            String line = readDict(newPtr);
+            if((line == null)||(line.substring(0, 1).equals("\u0000"))){
+                StringBuffer sb = new StringBuffer("");
+                sb.append(entry.word);
+                sb.append("*");
+                sb.append(entry.dataPointer);
+                sb.append("*\n");
+                writeDict(sb.toString(), newPtr);
+                break;
+            }
+        }
+        return entry;
+    }
+    Boolean checkCollision(String[] dataParts, String token){
+        System.err.println( "Check Collision" );
+        Boolean bool = false;
+        if(dataParts[0]=="!"){
+            int hashOffset = 0;
+            //Collision and relocation
+            int length = dataParts.length;
+            for(int i=1;i<length-1;i=i+2){
+                if(token == dataParts[i]){
+                    hashOffset = Integer.parseInt(dataParts[i+1]);
+                }
+            }
+            long newPtr = Math.abs((token.hashCode()+hashOffset)%TABLESIZE);
+            read(newPtr, token);
+            bool = true;
+        }
+        return bool;
+    }*/
+
+    /*try {
+                    testFile.writeChars("Third list\n");
+                    for(int j=0; j<pOdd.size(); j++){
+                        PostingsEntry e = pOdd.get(j);
+
+                        testFile.writeChars("Entry nr " + j+"\n");
+                        testFile.writeChars(Integer.toString(e.docID));
+                        testFile.writeChars("\n");
+                        testFile.writeChars(Integer.toString(e.offset));
+                        testFile.writeChars("\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+
+                   /**
+     *
+     * @param p1 PostingsList of (first) query-word
+     * @param p2 PostingsList of (second) query-word
+     * @return all entries of a query-word that shares a document with another query-word
+     */
+    public PostingsList intersectOld(PostingsList p1, PostingsList p2) {
+        PostingsList answer = new PostingsList();
+        if (p1.size() != 0 && p2.size() != 0) {
+            //For each entry of first query word
+            for (int i = 0; i < p1.size(); i++) {
+                PostingsEntry p1Entry = p1.get(i);
+                int p1ID = p1Entry.docID;
+                //If any entry of second query word is in same doc
+                for(int j=0;j<p2.size();j++){
+                    PostingsEntry p2Entry = p2.get(j);
+                    if(p1ID==p2Entry.docID){
+                        answer.add(p1Entry);
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
+
+        public PostingsList fromDocument(PostingsList pl, int id){
+        PostingsList answer = new PostingsList();
+        for (int i=0;i<pl.size(); i++){
+            PostingsEntry entry = pl.get(i);
+            if (entry.docID == id){
+                answer.add(entry);
+            }
+        }
+        return answer;
+    }
+    Boolean withOffset(PostingsEntry entry, int offset){
+            LinkedList<Integer> offsets = entry.offsets;
+            for(int j=0;j<offsets.size();j++){
+                if(offsets.get(j) == offset){
+                    return true;
+                }
+            }
+        return false;
+    }
+
+        //Get list of all PostingsEntries with term
+/*    public PostingsList phrase(PostingsList pList, Query query){
+        System.err.println("Phrase");
+        PostingsList answer = new PostingsList();
+        int querySize = query.size();
+        int off = 0;
+        int id = 0;
+        //Go through the entries for the first word
+        for(int i=0;i<pList.size();i++){
+            PostingsEntry entr = pList.get(i);
+            off = entr.offset;
+            id = entr.docID;
+
+            //Go through terms of query strating with term 2
+            for(int j=1;j<querySize;j++){
+                //The entries for term in query which shares document with first term in query
+                PostingsList thisTerm = index.getPostings(query.queryterm.get(j).term);
+                thisTerm = fromDocument(thisTerm, id);
+                int newOffset = off+j;
+                //Entries that share document and has correct offset
+                PostingsList withOffset = withOffset(thisTerm, newOffset);
+                if(withOffset.size()==0){
+                    //If any of the terms have no entries, cancel
+                    break;
+                }
+                if(j==querySize-1){
+                    //Found correct docID&offset for all query-terms
+                    for (int k=0; k<withOffset.size(); k++){
+                        answer.add(withOffset.get(k));
+                    }
+
+                }
+            }
+        }
+        return answer;
+    }*/

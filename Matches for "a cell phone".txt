@@ -1,0 +1,30 @@
+2417---davisWiki/AlexNelson.f---2417				31 a 	2 cell   1 phone	
+2320---davisWiki/Davis_Computer.f---2320		ca 60 a 	3 cell 	ca 100 phone
+2620---davisWiki/UC_Davis_English_Department.f---2620	ca 50 a  1 cell 	ca 50 phone
+3781---davisWiki/Mobile_Phones.f---3781
+3850---davisWiki/ZacharyNorwood.f---3850
+4099---davisWiki/Davis_Police_Department.f---4099
+5157---davisWiki/Howard_IM_Field.f---5157
+7327---davisWiki/Bay_Area.f---7327
+7676---davisWiki/GregRobinson.f---7676
+7622---davisWiki/November_18%2C_2011_UC_Davis_Police_Response_to_Occupy_UC_Davis.f---7622
+8053---davisWiki/Downtown_Phone_11.f---8053
+8792---davisWiki/World%27s_Largest_Bicycle_Parade.f---8792
+9350---davisWiki/Absolute_Cellular.f---9350
+9326---davisWiki/Emergency_Services.f---9326
+9458---davisWiki/Handbook.f---9458
+10366---davisWiki/MyaBrn.f---10366
+10427---davisWiki/Police_Misconduct_Stories.f---10427
+11468---davisWiki/Zipcar.f---11468
+11552---davisWiki/mahmoudrezanaemeh.f---11552
+12670---davisWiki/Crying_Girl_Con_Artist.f---12670
+13824---davisWiki/Comcast.f---13824
+13422---davisWiki/UC_Davis_Police_Department.f---13422
+13987---davisWiki/Yolo_United.f---13987
+14024---davisWiki/AT%26T.f---14024
+14577---davisWiki/Campus_Manor_Studio_Apartments.f---14577
+14482---davisWiki/MoeHirani.f---14482
+14496---davisWiki/Stapler_Liberation_Front.f---14496
+15928---davisWiki/Chiles_Road.f---15928
+16681---davisWiki/RadioShack.f---16681
+17454---davisWiki/The_Work_Shop.f---17454

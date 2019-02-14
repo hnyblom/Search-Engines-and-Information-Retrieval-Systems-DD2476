@@ -1,0 +1,1306 @@
+Second list
+Entry nr 0
+4
+81
+Entry nr 1
+36
+142
+Entry nr 2
+48
+674
+Entry nr 3
+54
+592
+Entry nr 4
+116
+390
+Entry nr 5
+229
+16
+Entry nr 6
+229
+209
+Entry nr 7
+229
+215
+Entry nr 8
+229
+223
+Entry nr 9
+229
+229
+Entry nr 10
+229
+237
+Entry nr 11
+229
+245
+Entry nr 12
+229
+346
+Entry nr 13
+229
+394
+Entry nr 14
+229
+416
+Entry nr 15
+229
+424
+Entry nr 16
+291
+274
+Entry nr 17
+378
+1025
+Entry nr 18
+521
+766
+Entry nr 19
+521
+774
+Entry nr 20
+541
+986
+Entry nr 21
+683
+158
+Entry nr 22
+840
+480
+Entry nr 23
+840
+1531
+Entry nr 24
+855
+2178
+Entry nr 25
+870
+2374
+Entry nr 26
+918
+220
+Entry nr 27
+1011
+179
+Entry nr 28
+1063
+859
+Entry nr 29
+1174
+375
+Entry nr 30
+1204
+7372
+Entry nr 31
+1305
+56
+Entry nr 32
+1369
+420
+Entry nr 33
+1410
+3187
+Entry nr 34
+1418
+122
+Entry nr 35
+1534
+1706
+Entry nr 36
+1534
+6361
+Entry nr 37
+1545
+981
+Entry nr 38
+1560
+65
+Entry nr 39
+1582
+211
+Entry nr 40
+1582
+569
+Entry nr 41
+1674
+2904
+Entry nr 42
+1749
+2113
+Entry nr 43
+1776
+113
+Entry nr 44
+1787
+243
+Entry nr 45
+1896
+83
+Entry nr 46
+1917
+2402
+Entry nr 47
+1934
+33
+Entry nr 48
+1971
+1159
+Entry nr 49
+1971
+4796
+Entry nr 50
+1990
+245
+Entry nr 51
+2074
+651
+Entry nr 52
+2183
+2085
+Entry nr 53
+2262
+432
+Entry nr 54
+2320
+442
+Entry nr 55
+2320
+765
+Entry nr 56
+2320
+892
+Entry nr 57
+2363
+186
+Entry nr 58
+2382
+500
+Entry nr 59
+2417
+814
+Entry nr 60
+2417
+909
+Entry nr 61
+2465
+1424
+Entry nr 62
+2465
+1426
+Entry nr 63
+2465
+1823
+Entry nr 64
+2523
+59
+Entry nr 65
+2570
+254
+Entry nr 66
+2570
+257
+Entry nr 67
+2570
+299
+Entry nr 68
+2578
+18
+Entry nr 69
+2578
+548
+Entry nr 70
+2618
+3035
+Entry nr 71
+2620
+1516
+Entry nr 72
+2629
+6563
+Entry nr 73
+2629
+6658
+Entry nr 74
+2660
+365
+Entry nr 75
+2766
+8
+Entry nr 76
+2789
+1607
+Entry nr 77
+2789
+2103
+Entry nr 78
+2789
+3241
+Entry nr 79
+2789
+3354
+Entry nr 80
+2789
+3744
+Entry nr 81
+2802
+275
+Entry nr 82
+2817
+3335
+Entry nr 83
+2853
+76
+Entry nr 84
+3067
+13928
+Entry nr 85
+3120
+470
+Entry nr 86
+3320
+3352
+Entry nr 87
+3320
+3355
+Entry nr 88
+3320
+5708
+Entry nr 89
+3411
+138
+Entry nr 90
+3411
+404
+Entry nr 91
+3551
+644
+Entry nr 92
+3645
+261
+Entry nr 93
+3687
+1579
+Entry nr 94
+3711
+1144
+Entry nr 95
+3781
+52
+Entry nr 96
+3781
+211
+Entry nr 97
+3781
+247
+Entry nr 98
+3781
+318
+Entry nr 99
+3781
+324
+Entry nr 100
+3781
+361
+Entry nr 101
+3781
+417
+Entry nr 102
+3781
+441
+Entry nr 103
+3781
+498
+Entry nr 104
+3781
+703
+Entry nr 105
+3781
+862
+Entry nr 106
+3781
+878
+Entry nr 107
+3781
+3044
+Entry nr 108
+3781
+3203
+Entry nr 109
+3781
+3551
+Entry nr 110
+3781
+3727
+Entry nr 111
+3781
+3770
+Entry nr 112
+3850
+969
+Entry nr 113
+3906
+185
+Entry nr 114
+3972
+125
+Entry nr 115
+3972
+187
+Entry nr 116
+3972
+246
+Entry nr 117
+4043
+1409
+Entry nr 118
+4043
+1416
+Entry nr 119
+4097
+1112
+Entry nr 120
+4097
+1748
+Entry nr 121
+4097
+1758
+Entry nr 122
+4099
+11733
+Entry nr 123
+4099
+12696
+Entry nr 124
+4148
+949
+Entry nr 125
+4148
+995
+Entry nr 126
+4170
+2694
+Entry nr 127
+4170
+2696
+Entry nr 128
+4170
+2706
+Entry nr 129
+4170
+2720
+Entry nr 130
+4170
+2734
+Entry nr 131
+4178
+1282
+Entry nr 132
+4295
+467
+Entry nr 133
+4510
+677
+Entry nr 134
+4521
+103
+Entry nr 135
+4544
+380
+Entry nr 136
+4544
+383
+Entry nr 137
+4626
+3644
+Entry nr 138
+4648
+1429
+Entry nr 139
+4699
+829
+Entry nr 140
+4722
+41
+Entry nr 141
+4825
+3867
+Entry nr 142
+4841
+818
+Entry nr 143
+5150
+3585
+Entry nr 144
+5157
+73
+Entry nr 145
+5157
+76
+Entry nr 146
+5331
+2734
+Entry nr 147
+5602
+10
+Entry nr 148
+5689
+3217
+Entry nr 149
+5689
+8279
+Entry nr 150
+5689
+8361
+Entry nr 151
+5692
+267
+Entry nr 152
+5750
+265
+Entry nr 153
+5760
+7262
+Entry nr 154
+5775
+171
+Entry nr 155
+5788
+228
+Entry nr 156
+5874
+364
+Entry nr 157
+5874
+404
+Entry nr 158
+5874
+519
+Entry nr 159
+5874
+840
+Entry nr 160
+5911
+2404
+Entry nr 161
+5935
+5878
+Entry nr 162
+6166
+5975
+Entry nr 163
+6199
+828
+Entry nr 164
+6274
+68
+Entry nr 165
+6281
+53
+Entry nr 166
+6521
+134
+Entry nr 167
+6524
+178
+Entry nr 168
+6552
+69
+Entry nr 169
+6554
+10
+Entry nr 170
+6554
+12
+Entry nr 171
+6571
+218
+Entry nr 172
+6610
+2781
+Entry nr 173
+6709
+2558
+Entry nr 174
+6813
+2135
+Entry nr 175
+6962
+103
+Entry nr 176
+7053
+132
+Entry nr 177
+7082
+589
+Entry nr 178
+7118
+85
+Entry nr 179
+7170
+731
+Entry nr 180
+7252
+600
+Entry nr 181
+7279
+53
+Entry nr 182
+7304
+1110
+Entry nr 183
+7327
+425
+Entry nr 184
+7387
+2400
+Entry nr 185
+7410
+3666
+Entry nr 186
+7462
+1435
+Entry nr 187
+7566
+194
+Entry nr 188
+7594
+164
+Entry nr 189
+7622
+1568
+Entry nr 190
+7622
+2756
+Entry nr 191
+7638
+800
+Entry nr 192
+7676
+98
+Entry nr 193
+7686
+304
+Entry nr 194
+7741
+12973
+Entry nr 195
+7983
+622
+Entry nr 196
+8053
+78
+Entry nr 197
+8066
+137
+Entry nr 198
+8284
+148
+Entry nr 199
+8284
+152
+Entry nr 200
+8438
+15370
+Entry nr 201
+8439
+80
+Entry nr 202
+8439
+209
+Entry nr 203
+8439
+4356
+Entry nr 204
+8439
+4475
+Entry nr 205
+8662
+96
+Entry nr 206
+8792
+288
+Entry nr 207
+8809
+2181
+Entry nr 208
+8825
+312
+Entry nr 209
+8859
+3142
+Entry nr 210
+9093
+658
+Entry nr 211
+9093
+2318
+Entry nr 212
+9093
+2400
+Entry nr 213
+9093
+3730
+Entry nr 214
+9234
+135
+Entry nr 215
+9235
+42
+Entry nr 216
+9304
+367
+Entry nr 217
+9326
+28
+Entry nr 218
+9326
+46
+Entry nr 219
+9326
+57
+Entry nr 220
+9326
+374
+Entry nr 221
+9350
+536
+Entry nr 222
+9350
+897
+Entry nr 223
+9350
+945
+Entry nr 224
+9350
+1227
+Entry nr 225
+9350
+1336
+Entry nr 226
+9350
+1454
+Entry nr 227
+9350
+1759
+Entry nr 228
+9350
+1872
+Entry nr 229
+9350
+1941
+Entry nr 230
+9458
+1572
+Entry nr 231
+9499
+3
+Entry nr 232
+9499
+22
+Entry nr 233
+9635
+3637
+Entry nr 234
+9642
+643
+Entry nr 235
+9684
+4468
+Entry nr 236
+9702
+1657
+Entry nr 237
+9796
+23
+Entry nr 238
+9796
+50
+Entry nr 239
+9900
+255
+Entry nr 240
+9935
+82
+Entry nr 241
+10118
+293
+Entry nr 242
+10134
+46
+Entry nr 243
+10134
+87
+Entry nr 244
+10253
+33
+Entry nr 245
+10271
+910
+Entry nr 246
+10366
+12
+Entry nr 247
+10366
+27
+Entry nr 248
+10366
+48
+Entry nr 249
+10427
+1045
+Entry nr 250
+10427
+1121
+Entry nr 251
+10427
+1154
+Entry nr 252
+10432
+35
+Entry nr 253
+10432
+38
+Entry nr 254
+10432
+168
+Entry nr 255
+10486
+0
+Entry nr 256
+10486
+86
+Entry nr 257
+10486
+197
+Entry nr 258
+10486
+203
+Entry nr 259
+10486
+222
+Entry nr 260
+10493
+4953
+Entry nr 261
+10542
+77
+Entry nr 262
+10558
+7802
+Entry nr 263
+10558
+7820
+Entry nr 264
+10558
+20775
+Entry nr 265
+10558
+42274
+Entry nr 266
+10558
+44413
+Entry nr 267
+10558
+47384
+Entry nr 268
+10713
+251
+Entry nr 269
+10933
+1955
+Entry nr 270
+10933
+4022
+Entry nr 271
+10958
+1620
+Entry nr 272
+10958
+2116
+Entry nr 273
+10958
+3254
+Entry nr 274
+10958
+3367
+Entry nr 275
+10958
+3757
+Entry nr 276
+11050
+741
+Entry nr 277
+11122
+104
+Entry nr 278
+11157
+5911
+Entry nr 279
+11161
+35
+Entry nr 280
+11161
+182
+Entry nr 281
+11166
+3237
+Entry nr 282
+11166
+3246
+Entry nr 283
+11166
+3952
+Entry nr 284
+11229
+612
+Entry nr 285
+11276
+43
+Entry nr 286
+11282
+187
+Entry nr 287
+11331
+106
+Entry nr 288
+11332
+3490
+Entry nr 289
+11438
+1638
+Entry nr 290
+11468
+72
+Entry nr 291
+11490
+119
+Entry nr 292
+11504
+119
+Entry nr 293
+11530
+1508
+Entry nr 294
+11552
+260
+Entry nr 295
+11637
+255
+Entry nr 296
+11637
+259
+Entry nr 297
+11637
+4996
+Entry nr 298
+11637
+5038
+Entry nr 299
+11637
+6303
+Entry nr 300
+11637
+6668
+Entry nr 301
+11799
+227
+Entry nr 302
+11888
+1235
+Entry nr 303
+11910
+1744
+Entry nr 304
+11960
+721
+Entry nr 305
+12032
+813
+Entry nr 306
+12032
+1009
+Entry nr 307
+12091
+416
+Entry nr 308
+12179
+319
+Entry nr 309
+12433
+1148
+Entry nr 310
+12560
+7631
+Entry nr 311
+12670
+3545
+Entry nr 312
+12683
+336
+Entry nr 313
+12769
+6325
+Entry nr 314
+12769
+6378
+Entry nr 315
+12805
+713
+Entry nr 316
+12805
+718
+Entry nr 317
+12805
+737
+Entry nr 318
+12988
+587
+Entry nr 319
+12998
+1895
+Entry nr 320
+12998
+7429
+Entry nr 321
+13000
+26
+Entry nr 322
+13000
+50
+Entry nr 323
+13000
+88
+Entry nr 324
+13000
+90
+Entry nr 325
+13000
+164
+Entry nr 326
+13117
+4012
+Entry nr 327
+13117
+4134
+Entry nr 328
+13117
+4154
+Entry nr 329
+13117
+4435
+Entry nr 330
+13123
+6655
+Entry nr 331
+13123
+7745
+Entry nr 332
+13124
+30548
+Entry nr 333
+13186
+35
+Entry nr 334
+13198
+3546
+Entry nr 335
+13228
+150
+Entry nr 336
+13277
+1764
+Entry nr 337
+13288
+129
+Entry nr 338
+13383
+500
+Entry nr 339
+13422
+306
+Entry nr 340
+13422
+325
+Entry nr 341
+13568
+90
+Entry nr 342
+13768
+1000
+Entry nr 343
+13824
+4636
+Entry nr 344
+13824
+4654
+Entry nr 345
+13824
+4743
+Entry nr 346
+13824
+7192
+Entry nr 347
+13824
+7301
+Entry nr 348
+13891
+296
+Entry nr 349
+13908
+5996
+Entry nr 350
+13908
+8552
+Entry nr 351
+13987
+61
+Entry nr 352
+13987
+87
+Entry nr 353
+14024
+1036
+Entry nr 354
+14024
+1443
+Entry nr 355
+14102
+318
+Entry nr 356
+14141
+626
+Entry nr 357
+14141
+11684
+Entry nr 358
+14161
+2606
+Entry nr 359
+14181
+0
+Entry nr 360
+14181
+30
+Entry nr 361
+14181
+61
+Entry nr 362
+14181
+120
+Entry nr 363
+14181
+242
+Entry nr 364
+14204
+455
+Entry nr 365
+14478
+23
+Entry nr 366
+14482
+49
+Entry nr 367
+14496
+3477
+Entry nr 368
+14496
+3492
+Entry nr 369
+14496
+3606
+Entry nr 370
+14543
+163
+Entry nr 371
+14577
+1551
+Entry nr 372
+14584
+21
+Entry nr 373
+14637
+4366
+Entry nr 374
+14684
+83
+Entry nr 375
+14766
+169
+Entry nr 376
+14849
+2129
+Entry nr 377
+14938
+60
+Entry nr 378
+14963
+187
+Entry nr 379
+15011
+10329
+Entry nr 380
+15144
+1169
+Entry nr 381
+15177
+1017
+Entry nr 382
+15236
+196
+Entry nr 383
+15475
+1054
+Entry nr 384
+15547
+6415
+Entry nr 385
+15557
+2130
+Entry nr 386
+15723
+152
+Entry nr 387
+15868
+41
+Entry nr 388
+15868
+150
+Entry nr 389
+15928
+143
+Entry nr 390
+15928
+146
+Entry nr 391
+15932
+9
+Entry nr 392
+16047
+379
+Entry nr 393
+16278
+2755
+Entry nr 394
+16278
+2802
+Entry nr 395
+16278
+16863
+Entry nr 396
+16318
+1747
+Entry nr 397
+16331
+1853
+Entry nr 398
+16331
+1864
+Entry nr 399
+16331
+1874
+Entry nr 400
+16331
+1881
+Entry nr 401
+16388
+2213
+Entry nr 402
+16412
+334
+Entry nr 403
+16423
+234
+Entry nr 404
+16537
+2310
+Entry nr 405
+16556
+147
+Entry nr 406
+16608
+201
+Entry nr 407
+16681
+206
+Entry nr 408
+16681
+862
+Entry nr 409
+16681
+921
+Entry nr 410
+16681
+947
+Entry nr 411
+16681
+1616
+Entry nr 412
+16681
+3761
+Entry nr 413
+16681
+3812
+Entry nr 414
+16681
+3827
+Entry nr 415
+16804
+398
+Entry nr 416
+16808
+170
+Entry nr 417
+16808
+288
+Entry nr 418
+16844
+167
+Entry nr 419
+16985
+4744
+Entry nr 420
+17019
+790
+Entry nr 421
+17019
+807
+Entry nr 422
+17094
+1666
+Entry nr 423
+17122
+39
+Entry nr 424
+17122
+1426
+Entry nr 425
+17191
+243
+Entry nr 426
+17264
+2838
+Entry nr 427
+17264
+4456
+Entry nr 428
+17343
+246
+Entry nr 429
+17454
+41
+Entry nr 430
+17454
+575
+Entry nr 431
+17454
+624
+Entry nr 432
+17454
+664
+Entry nr 433
+17460
+1182
+Entry nr 434
+17460
+1268
