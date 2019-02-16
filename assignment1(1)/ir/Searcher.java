@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *  Searches an index for results of a query.
@@ -50,11 +51,32 @@ public class Searcher {
             }else {
                 //Get list of first word entries in docs with all other query terms
                 PostingsList inters = intersection(query, queryType);
-                //PostingsList phrase = phrase(inters, query);
-                //answer = unique(phrase);
                 answer = inters;
             }
         }else if (queryType==QueryType.RANKED_QUERY){
+            //Compute query vector
+            ArrayList queryList = query.queryterm;
+            HashMap<Object, Integer> dupCount = new HashMap<>();
+            HashMap<String, Double> queryWeights = new HashMap<>();
+
+            //Count duplicates of terms in the query
+            for (Object term : queryList) {
+                Object getResult = dupCount.get(term);
+                if (getResult!=null) {
+                    int j = (int) getResult;
+                    dupCount.put(term, j+1);
+                }else{
+                    dupCount.put(term, 1);
+                }
+            }
+            for(Map.Entry<Object, Integer> entry : dupCount.entrySet()){
+                String queryTerm = entry.getKey().toString();
+                int tf = entry.getValue();
+                int df = unique(index.getPostings(queryTerm)).size();
+                queryWeights.put(queryTerm, queryTfIdf(tf, df, query.size()));
+            }
+            cosineScore(queryWeights);
+
             PostingsList theList = new PostingsList();
 
             //Number of documents in corpus which contains term
@@ -79,37 +101,51 @@ public class Searcher {
     }
 
     //Helpers
-    public void cosineScore(Query query){
-        ArrayList Length = new ArrayList();
-        for(Query.QueryTerm term : query.queryterm){
-            //Calculate w(t,q) - weight
-            //double weight = tfIdf(term)
-            //Fetch postings list
-            PostingsList list = index.getPostings(term.term);
-            //For each pair(d, tf(t,d)) (document, term-frequency) in postings list
-            for(int i=0;i<list.size();i++){
-                float score = indexer.getScore(list.get(i).docID);
-                //scores[d] += wf(t,d) x w (t,q)
-                score += tfIdf(list.get(i), query.size());
+    public Map cosineScore(HashMap<String, Double> queryWeights){
 
+        HashMap<Integer, Double> scores = new HashMap(); // Holds the scores for each of the documents
+        for(Map.Entry<String, Double> entry : queryWeights.entrySet()){
+            String token = entry.getKey();
+            //Fetch postings list
+            PostingsList termPostingsList = index.getPostings(token);
+            //For each pair(d, tf(t,d)) (document, term-frequency) in postings list
+            for(int i=0;i<termPostingsList.size();i++){
+                PostingsEntry pEntry = termPostingsList.get(i);
+                int docID = pEntry.docID;
+                int termFrequency = duplicates(token, docID);
+                double termDocWeight = tfIdf(pEntry, termFrequency);
+                double termQueryWeight = entry.getValue();
+                double score = termDocWeight*termQueryWeight; //scores[d] += w(t,d) x w (t,q)
+                int length = Index.docLengths.get(docID);
+                score = score/length;
+                scores.put(docID, score);
 
             }
         }
+        Map<Integer, Float> sortedMap = scores.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)->e1, LinkedHashMap::new));
+        Map<Integer, Float> subMap = sortedMap.entrySet().stream().limit(10).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)->e1, LinkedHashMap::new));
+        return subMap;
     }
-    public double tfIdf(PostingsEntry entry, int size){
+
+    public double tfIdf(PostingsEntry entry, int docFrequency){
         //Number of docs in corpus
         int n = 17481;
-        double idf = Math.log(n/size);
+        double idf = Math.log(n/docFrequency); //Inverse document frequency.
 
-        //tf.d.t - Check how many times the term occurs in the document
-        int duplicateVal = duplicates(entry.token, entry.docID);
+        //tert frequency (tf) - Check how many times the term occurs in the document
+        int tf = duplicates(entry.token, entry.docID);
 
         //len.d - Check number of words in the document
-        int length = index.docLengths.get(entry.docID);
+        //int length = index.docLengths.get(entry.docID);
 
-        return (duplicateVal*idf)/length;
+        return (tf*idf);
 
         //entry.score =+ (duplicateVal*idf)/length;
+    }
+    public double queryTfIdf(int tf, int df, int querySize){
+        int n = querySize;
+        double idf = Math.log(n/df); //Inverse document frequency.
+        return (tf*idf);
     }
 
     public int duplicates(String token, int docID){
@@ -122,7 +158,6 @@ public class Searcher {
         }
         return nr;
     }
-
 
     public PostingsList multiWord(Query query){
         PostingsList answer = new PostingsList();
@@ -188,23 +223,6 @@ public class Searcher {
             }else if(queryType==QueryType.PHRASE_QUERY){
                 answer = phrase(query);
                 answer = unique(answer);
-                //No earlier terms.
-                /*if (oldPostList.size() == 0) {
-                    oldPostList = positionalIntersect(pi, pi1, i+1);
-                    answer = oldPostList;
-
-                    //2 or more earlier joined terms.
-                } else {
-                    PostingsList tempPostList = positionalIntersect(pi, pi1, i+1);
-                    answer = positionalIntersect(oldPostList, tempPostList, i+2);
-                    oldPostList = answer;
-                }
-
-                //Odd number of terms, last term.
-                if (i + 3 == query.size()) {
-                    PostingsList pOdd = index.getPostings(query.queryterm.get(i + 2).term);
-                    answer = positionalIntersect(oldPostList, pOdd, i+3);
-                }*/
             }
         }
         return answer;
