@@ -55,12 +55,13 @@ public class Searcher {
             }
         }else if (queryType==QueryType.RANKED_QUERY){
             //Compute query vector
-            ArrayList queryList = query.queryterm;
+            ArrayList<Query.QueryTerm> queryList = query.queryterm;
             HashMap<Object, Integer> dupCount = new HashMap<>();
             HashMap<String, Double> queryWeights = new HashMap<>();
 
             //Count duplicates of terms in the query
-            for (Object term : queryList) {
+            for (Query.QueryTerm qTerm : queryList) {
+                String term = qTerm.term;
                 Object getResult = dupCount.get(term);
                 if (getResult!=null) {
                     int j = (int) getResult;
@@ -70,17 +71,22 @@ public class Searcher {
                 }
             }
             for(Map.Entry<Object, Integer> entry : dupCount.entrySet()){
-                String queryTerm = entry.getKey().toString();
+                String queryTerm = entry.getKey().toString();//ta bort tostring
                 int tf = entry.getValue();
                 int df = unique(index.getPostings(queryTerm)).size();
                 queryWeights.put(queryTerm, queryTfIdf(tf, df, query.size()));
             }
-            cosineScore(queryWeights);
-
+            Map<Integer, Double> result = cosineScore(queryWeights);
             PostingsList theList = new PostingsList();
-
+            for(Map.Entry<Integer, Double> resultEntry : result.entrySet()){
+                PostingsEntry newPostEntry = new PostingsEntry();
+                newPostEntry.docID = resultEntry.getKey();
+                newPostEntry.score = resultEntry.getValue();
+                theList.add(newPostEntry);
+            }
+            answer = theList;
             //Number of documents in corpus which contains term
-            if(query.size() ==1){
+            /*if(query.size() ==1){
                 theList = unique(index.getPostings(query.queryterm.get(0).term));
             }else{
                 theList = multiWord(query);
@@ -95,7 +101,7 @@ public class Searcher {
                 }
                 Collections.sort(theList.getList());
                 answer = theList;
-            }
+            }*/
         }
         return answer;
     }
@@ -112,8 +118,9 @@ public class Searcher {
             for(int i=0;i<termPostingsList.size();i++){
                 PostingsEntry pEntry = termPostingsList.get(i);
                 int docID = pEntry.docID;
-                int termFrequency = duplicates(token, docID);
-                double termDocWeight = tfIdf(pEntry, termFrequency);
+                //int termFrequency = duplicates(token, docID);
+                int docFrequency = unique(termPostingsList).size();
+                double termDocWeight = tfIdf(pEntry, docFrequency);
                 double termQueryWeight = entry.getValue();
                 double score = termDocWeight*termQueryWeight; //scores[d] += w(t,d) x w (t,q)
                 int length = Index.docLengths.get(docID);
@@ -122,9 +129,10 @@ public class Searcher {
 
             }
         }
-        Map<Integer, Float> sortedMap = scores.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)->e1, LinkedHashMap::new));
-        Map<Integer, Float> subMap = sortedMap.entrySet().stream().limit(10).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)->e1, LinkedHashMap::new));
-        return subMap;
+        Map<Integer, Double> sortedMap = scores.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2)->e1, LinkedHashMap::new));
+        //Map<Integer, Double> subMap = sortedMap.entrySet().stream().limit(10).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)->e1, LinkedHashMap::new));
+        //return subMap;
+        return sortedMap;
     }
 
     public double tfIdf(PostingsEntry entry, int docFrequency){
@@ -143,7 +151,8 @@ public class Searcher {
         //entry.score =+ (duplicateVal*idf)/length;
     }
     public double queryTfIdf(int tf, int df, int querySize){
-        int n = querySize;
+        //int n = querySize;
+        int n = 17481;
         double idf = Math.log(n/df); //Inverse document frequency.
         return (tf*idf);
     }
