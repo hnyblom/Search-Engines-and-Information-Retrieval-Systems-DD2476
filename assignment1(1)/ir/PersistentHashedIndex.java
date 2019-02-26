@@ -114,7 +114,6 @@ public class PersistentHashedIndex implements Index {
      *  @return The number of bytes written.
      */
     int writeData( String dataString, long ptr ) {
-        System.err.println( "Write Data" );
         try {
             dataFile.seek( ptr );
             byte[] data = dataString.getBytes();
@@ -126,7 +125,6 @@ public class PersistentHashedIndex implements Index {
         }
     }
     int writeColl( String dataString, long ptr ) {
-        System.err.println( "Write Collision" );
         try {
             collisionFile.seek( ptr );
             byte[] data = dataString.getBytes();
@@ -139,7 +137,6 @@ public class PersistentHashedIndex implements Index {
         }
     }
     void writeDict( int collision, long dataPtr, int dataSize, long ptr ) {
-        System.err.println( "Write Dict" );
         try {
             dictionaryFile.seek( ptr );
             dictionaryFile.writeInt(collision);
@@ -226,7 +223,6 @@ public class PersistentHashedIndex implements Index {
      *  @param ptr   The place in the dictionary file to store the entry
      */
     void writeEntry(Entry entry, String word) {
-        System.err.println( "Write Entry" );
         //long ptr = Math.abs(word.hashCode()%TABLESIZE);
         long ptr = hash(word);
         Entry existingEntry = readEntry(word);
@@ -238,7 +234,6 @@ public class PersistentHashedIndex implements Index {
                 Object first = o.getFirst();
                 String firstWord = first.toString();
 
-                //TODO:Ask about this, pointers in Dictionary-file are larger than the Data file.
                 //Get the previous postingsList for the word hashed to this value
                 //PostingsList existingList = getPostList(existingEntry, firstWord); //Uncomment
                 //String existingWord = existingList.get(0).token;
@@ -319,7 +314,6 @@ public class PersistentHashedIndex implements Index {
     }
 
     Entry readEntry(String token){
-        System.err.println( "Read Entry" );
         //long ptr = Math.abs(token.hashCode()%TABLESIZE);
         long ptr = hash(token);
         Entry e = readDict(ptr);
@@ -385,7 +379,6 @@ public class PersistentHashedIndex implements Index {
     // ==================================================================
 
     public void stringPosting(String word, PostingsList pList){
-        System.err.println( "String Posting" );
         //Avoid serialization with string-buffer
         StringBuffer sb = new StringBuffer("");
         for (int i =0;i<pList.size();i++){
@@ -408,6 +401,7 @@ public class PersistentHashedIndex implements Index {
         e.collision = 2;
         e.dataPointer = free;
         //Increment file position
+        //TODO: Detta var felet,incrementade file position för tidigt.
         if (datalen>0) free = free+datalen;
         //e.word = word;
         e.datalen = datalen;
@@ -429,7 +423,6 @@ public class PersistentHashedIndex implements Index {
     }
 
     public PostingsList getPostList(Entry entry, String token){
-        System.err.println( "get Post List" );
         PostingsList postList = new PostingsList();
         int coll = entry.collision;
         long ptr = entry.dataPointer;

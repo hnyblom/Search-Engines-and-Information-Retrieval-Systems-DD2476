@@ -28,7 +28,7 @@ public class PostingsEntry implements Comparable<PostingsEntry>, Serializable {
     public int compareTo( PostingsEntry other ) {
        return Double.compare( other.score, score );
     }
-
+    public String getToken(){ return token;}
 
     //
     // YOUR CODE HERE

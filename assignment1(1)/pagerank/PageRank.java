@@ -58,6 +58,7 @@ public class PageRank {
 
     public PageRank( String filename ) {
 	int noOfDocs = readDocs( filename );
+	if(noOfDocs>MAX_NUMBER_OF_DOCS){noOfDocs=MAX_NUMBER_OF_DOCS;}
 	initiateProbabilityMatrix( noOfDocs );
 	iterate( noOfDocs, 100 );
     }
@@ -127,80 +128,88 @@ public class PageRank {
 	return fileIndex;
     }
 
-
-
-
     /* --------------------------------------------- */
-
 
     /*
      *   Initiates the probability matrix. 
      */
     void initiateProbabilityMatrix( int numberOfDocs ) {
+    	//G = cP + (1-c)J
+
+		double linkProb = 0;
+		double docProb = 1.0/numberOfDocs;
+
 		for(int i=0; i<numberOfDocs; i++){
-			int nrOutLinks = out[i];
-			double probability = 0;
-			//double probability = 1.0/numberOfDocs;
+			double nrOutLinks = out[i];
 			if(nrOutLinks>0){
-				probability = 1.0/nrOutLinks;
+				linkProb = 1.0/nrOutLinks;
 			}
-			//System.out.println("Prob: " + probability);
 			for(int j=0;j<numberOfDocs;j++){
-				if(p[i][j]==(-1.0)){
-					p[i][j]=probability;
+				if(out[i]==0){
+					p[i][j]=docProb;
+				}else if(p[i][j]==(-1.0)){
+					p[i][j]=(COMPLEMENT*linkProb)+(BORED*docProb);
+				}else{
+					p[i][j]=(BORED*docProb);
 				}
 			}
 		}
     }
 
-
     /* --------------------------------------------- */
-
 
     /*
      *   Chooses a probability vector a, and repeatedly computes
      *   aP, aP^2, aP^3... until aP^i = aP^(i+1).
      */
-    void iterate( int numberOfDocs, int maxIterations ) {
-    	double initialProbability = 1.0/numberOfDocs;
+	void iterate( int numberOfDocs, int maxIterations ) {
 		double[] a = new double[numberOfDocs];
-		double[] oldA = new double[numberOfDocs];
-		//a[0]=1;
-		for(int k=1; k<numberOfDocs;k++){
-			a[k]=initialProbability;
-			//a[k]=0;
-		}
+		double[] oldA;
+		double diff = 1;
 		int iterations = 0;
-		while(iterations<maxIterations) {
-			for(int k=0;k<numberOfDocs;k++){
-				oldA[k]=a[k];
-			}
-			for (int i = 0; i < numberOfDocs; i++) {
-				double multiplier = a[i];
-				double sum =0.0;
-				for(int j=0;j<numberOfDocs;j++){
-					sum += multiplier*p[i][j];
-				}
-				a[i]+=sum;
-			}
-			double diff = compareVectors(oldA, a);
-			System.out.println("Diff: " + diff);
-			if(diff<=EPSILON){
-				System.out.println("Break: " + iterations);
-				break;
-			}
+		a[0]=1.0;
+		Arrays.fill(a, 1, numberOfDocs, 0.0);
+
+		while((iterations<maxIterations) && (diff>EPSILON)) {
+			oldA = Arrays.copyOf(a, a.length);
+
+			a = Arrays.copyOf(matrixVectorMult(oldA, numberOfDocs), a.length);
+
+			diff = compareVectors(oldA, a);
+
 			iterations++;
 		}
-		printRankings(a);
-    }
+		System.out.println("Iterations " + iterations);
 
-    double compareVectors(double[] oldV, double[] newV){
+		if(diff<=EPSILON){
+			System.out.println("Diffout "+ diff);
+		}
+		//Max interations is 100
+		printRankings(a);
+	}
+
+
+	double[] matrixVectorMult(double[] a, int nrDocs){
+		double sum;
+		double[] newA = new double[nrDocs];
+
+		for (int i=0;i<nrDocs;i++) {
+			sum = 0.0;
+			for(int j=0;j<nrDocs;j++){
+				if(a[j]!=0) {
+					sum += (a[j] * p[j][i]);
+				}
+			}
+			newA[i]=sum;
+		}
+		return newA;
+	}
+
+	double compareVectors(double[] oldV, double[] newV){
     	double answer = 0.0;
     	for(int i=0;i<oldV.length;i++){
-    		double diff = Math.abs(oldV[i]-newV[i]);
-    		answer += diff;
+			answer += Math.abs(oldV[i]-newV[i]);
 		}
-		answer=answer/oldV.length;
     	return answer;
 	}
 

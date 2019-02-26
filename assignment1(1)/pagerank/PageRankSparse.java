@@ -1,5 +1,8 @@
+package pagerank;
+
 import java.util.*;
 import java.io.*;
+import java.util.stream.Collectors;
 
 public class PageRankSparse {
 
@@ -42,6 +45,7 @@ public class PageRankSparse {
      *   following links, and take a random jump somewhere.
      */
     final static double BORED = 0.15;
+    final static double COMPLEMENT = 0.85;
 
     /**
      *   Convergence criterion: Transition probabilities do not 
@@ -126,18 +130,92 @@ public class PageRankSparse {
 
     /* --------------------------------------------- */
 
-
     /*
      *   Chooses a probability vector a, and repeatedly computes
      *   aP, aP^2, aP^3... until aP^i = aP^(i+1).
      */
     void iterate( int numberOfDocs, int maxIterations ) {
 
-	// YOUR CODE HERE
+		//G = cP + (1-c)J
+
+		double linkProb = 0;
+		double docProb = 1.0/numberOfDocs;
+
+		double[] a = new double[numberOfDocs];
+		double[] oldA;
+		double diff = 1;
+		double probability=0;
+		int iterations = 0;
+		double sum;
+		a[0]=1.0;
+		Arrays.fill(a, 1, numberOfDocs, 0.0);
+
+		while((iterations<maxIterations) && (diff>EPSILON)) {
+			System.out.println("Iterations: "+ iterations);
+			oldA = Arrays.copyOf(a, a.length);
+
+			for(int i=0; i<numberOfDocs; i++){
+				sum = 0;
+				for(int j=0; j<numberOfDocs; j++){
+					double nrOutLinks = out[i];
+					if(nrOutLinks>0){
+						linkProb = 1.0/nrOutLinks;
+					}
+					if(nrOutLinks==0){
+						probability = docProb;
+					}else if(link.get(i).get(j)!=null){
+						probability = (COMPLEMENT*linkProb)+(BORED*docProb);
+					}else{
+						probability = (BORED*docProb);
+					}
+					sum += (oldA[j] * probability);
+				}
+				a[i] = sum;
+			}
+
+			//a = Arrays.copyOf(matrixVectorMult(oldA, numberOfDocs), a.length);
+
+			diff = compareVectors(oldA, a);
+
+			iterations++;
+		}
+		System.out.println("Iterations " + iterations);
+
+		if(diff<=EPSILON){
+			System.out.println("Diffout "+ diff);
+		}
+		//Max interations is 100
+		printRankings(a);
 
     }
 
+	double compareVectors(double[] oldV, double[] newV){
+		double answer = 0.0;
+		for(int i=0;i<oldV.length;i++){
+			answer += Math.abs(oldV[i]-newV[i]);
+		}
+		return answer;
+	}
 
+	void printRankings(double[] a){
+		//Convert array to hashmap
+		HashMap<Integer, Double> rankings = new HashMap<>();
+		for(int i=0;i<a.length;i++){
+			rankings.put(i,a[i]);
+		}
+		//Sort rankings
+		Map<Integer, Double> sortedMap = rankings.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2)->e1, LinkedHashMap::new));
+		//Map<Integer, Double> sortedMap = rankings.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2)->e1, LinkedHashMap::new));
+
+		//Get only 30 highest rankings
+		Map<Integer, Double> subMap = sortedMap.entrySet().stream().limit(30).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)->e1, LinkedHashMap::new));
+
+		//Print 30 highest ranked
+		subMap.forEach((key, value) -> {
+			System.out.println("Key : " + docName[key] + " Value : " + value);
+		});
+
+	}
     /* --------------------------------------------- */
 
 

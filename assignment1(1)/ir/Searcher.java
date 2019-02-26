@@ -198,7 +198,6 @@ public class Searcher {
     }
 
     public PostingsList intersection(Query query, QueryType queryType){
-        System.err.println("Intersection");
         PostingsList answer = new PostingsList();
         PostingsList oldPostList = new PostingsList();
 
@@ -234,6 +233,8 @@ public class Searcher {
                 answer = unique(answer);
             }
         }
+        answer.sort(); //Testing
+
         return answer;
     }
 
@@ -266,7 +267,6 @@ public class Searcher {
      * @return Postingslist with entries of first word in a document with all other words from the query.
      */
     public PostingsList intersect(PostingsList p1, PostingsList p2) {
-        System.err.println("Intersect");
         PostingsList answer = new PostingsList();
         if (p1.size() != 0 && p2.size() != 0) {
             int i = 0;
