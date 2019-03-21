@@ -3,6 +3,7 @@ package pagerank;
 import java.util.*;
 import java.io.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PageRankSparse {
 
@@ -143,34 +144,62 @@ public class PageRankSparse {
 
 		double[] a = new double[numberOfDocs];
 		double[] oldA;
+		int[] count = new int[numberOfDocs];
 		double diff = 1;
 		double probability=0;
 		int iterations = 0;
 		double sum;
 		a[0]=1.0;
 		Arrays.fill(a, 1, numberOfDocs, 0.0);
-
+		long start = start = System.nanoTime();
+		long stop = 0;
+		double something;
 		while((iterations<maxIterations) && (diff>EPSILON)) {
 			System.out.println("Iterations: "+ iterations);
+			System.out.println("diff " + (diff));
 			oldA = Arrays.copyOf(a, a.length);
+			Arrays.fill(count, 0);
+			/*
+			link.forEach((k,v)->{
+				//IntStream.of(a).
+				v.forEach((k2,v2)->{
+					if(v2!=null){
+					}else{
+					}
+				});
+			});
+			*/
+			something = 0.0;
+			for(int k=0;k<numberOfDocs;k++){
+				if(out[k]==0){
+					something += oldA[k];
+				}
+			}
+			Arrays.fill(a, something/numberOfDocs);
 
 			for(int i=0; i<numberOfDocs; i++){
 				sum = 0;
 				for(int j=0; j<numberOfDocs; j++){
-					double nrOutLinks = out[i];
-					if(nrOutLinks>0){
-						linkProb = 1.0/nrOutLinks;
+					if(oldA[j]!=0) {
+						double nrOutLinks = out[i];
+						if(nrOutLinks>0){
+							linkProb = 1.0/nrOutLinks;
+							if((count[i]<out[i]) && (link.get(i).get(j)!=null)){
+								++count[i];
+								probability = (COMPLEMENT*linkProb)+(BORED*docProb);
+								a[i] += (oldA[j] * probability);
+							}else{
+								probability = (BORED*docProb);
+								a[i] += (oldA[j] * probability);
+							}
+						}else if(nrOutLinks==0){
+							probability = docProb;
+							a[i] += (oldA[j] * probability);
+						}
+						//sum += (oldA[j] * probability);
 					}
-					if(nrOutLinks==0){
-						probability = docProb;
-					}else if(link.get(i).get(j)!=null){
-						probability = (COMPLEMENT*linkProb)+(BORED*docProb);
-					}else{
-						probability = (BORED*docProb);
-					}
-					sum += (oldA[j] * probability);
 				}
-				a[i] = sum;
+				//a[i] = sum;
 			}
 
 			//a = Arrays.copyOf(matrixVectorMult(oldA, numberOfDocs), a.length);
@@ -179,7 +208,9 @@ public class PageRankSparse {
 
 			iterations++;
 		}
+		stop = System.nanoTime();
 		System.out.println("Iterations " + iterations);
+		System.out.println("Time: " + (stop-start)/1E9);
 
 		if(diff<=EPSILON){
 			System.out.println("Diffout "+ diff);

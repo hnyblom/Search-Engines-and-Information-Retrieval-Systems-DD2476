@@ -8,9 +8,7 @@
 
 package ir;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 
 /**
@@ -57,6 +55,19 @@ public class HashedIndex implements Index {
         return postlist;
     }
 
+    public HashMap<String,PostingsEntry> getTokens(int docID){
+        HashMap<String,PostingsEntry> result = new HashMap<String,PostingsEntry>();
+        for(Map.Entry<String, PostingsList> entry : index.entrySet()){
+            PostingsList l = entry.getValue();
+            for(int i=0;i<l.size();i++){
+                PostingsEntry e = l.get(i);
+                if(e.docID==docID){
+                    result.put(e.token, e);
+                }
+            }
+        }
+        return result;
+    }
 
     /**
      *  No need for cleanup in a HashedIndex.

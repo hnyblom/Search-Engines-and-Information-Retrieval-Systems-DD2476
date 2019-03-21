@@ -25,8 +25,14 @@ public class Searcher {
 
     Indexer indexer;
 
+    HashMap<Integer, Double> scores = new HashMap(); // Holds the cosinescores for each of the documents
+
+    HashMap<String, Double> queryWeights = new HashMap<>();
+
+
+
     /** Constructor */
-    public Searcher( Index index, KGramIndex kgIndex ) {
+    public Searcher( Index index) {
         this.index = index;
         this.kgIndex = kgIndex;
         this.indexer = indexer;
@@ -57,7 +63,6 @@ public class Searcher {
             //Compute query vector
             ArrayList<Query.QueryTerm> queryList = query.queryterm;
             HashMap<Object, Integer> dupCount = new HashMap<>();
-            HashMap<String, Double> queryWeights = new HashMap<>();
 
             //Count duplicates of terms in the query
             for (Query.QueryTerm qTerm : queryList) {
@@ -74,7 +79,8 @@ public class Searcher {
                 String queryTerm = entry.getKey().toString();//ta bort tostring
                 int tf = entry.getValue();
                 int df = unique(index.getPostings(queryTerm)).size();
-                queryWeights.put(queryTerm, queryTfIdf(tf, df, query.size()));
+                queryWeights.put(queryTerm, queryTfIdf(tf, df));
+
             }
             Map<Integer, Double> result = cosineScore(queryWeights);
             PostingsList theList = new PostingsList();
@@ -109,20 +115,19 @@ public class Searcher {
     //Helpers
     public Map cosineScore(HashMap<String, Double> queryWeights){
 
-        HashMap<Integer, Double> scores = new HashMap(); // Holds the scores for each of the documents
         for(Map.Entry<String, Double> entry : queryWeights.entrySet()){
             String token = entry.getKey();
             //Fetch postings list
             PostingsList termPostingsList = index.getPostings(token);
+            int docFrequency = docFrequency(token);
             //For each pair(d, tf(t,d)) (document, term-frequency) in postings list
             for(int i=0;i<termPostingsList.size();i++){
                 PostingsEntry pEntry = termPostingsList.get(i);
                 int docID = pEntry.docID;
                 //int termFrequency = duplicates(token, docID);
-                int docFrequency = unique(termPostingsList).size();
                 double termDocWeight = tfIdf(pEntry, docFrequency);
                 double termQueryWeight = entry.getValue();
-                double score = termDocWeight*termQueryWeight; //scores[d] += w(t,d) x w (t,q)
+                double score = termDocWeight*termQueryWeight; //scores[d] += w(t,d) x w(t,q)
                 int length = Index.docLengths.get(docID);
                 score = score/length;
                 scores.put(docID, score);
@@ -134,13 +139,18 @@ public class Searcher {
         //return subMap;
         return sortedMap;
     }
+    public int docFrequency(String token){
+        PostingsList termPostingsList = index.getPostings(token);
+        int docFrequency = unique(termPostingsList).size();
+        return docFrequency;
+    }
 
     public double tfIdf(PostingsEntry entry, int docFrequency){
         //Number of docs in corpus
         int n = 17481;
         double idf = Math.log(n/docFrequency); //Inverse document frequency.
 
-        //tert frequency (tf) - Check how many times the term occurs in the document
+        //term frequency (tf) - Check how many times the term occurs in the document
         int tf = duplicates(entry.token, entry.docID);
 
         //len.d - Check number of words in the document
@@ -150,7 +160,7 @@ public class Searcher {
 
         //entry.score =+ (duplicateVal*idf)/length;
     }
-    public double queryTfIdf(int tf, int df, int querySize){
+    public double queryTfIdf(int tf, int df){
         //int n = querySize;
         int n = 17481;
         double idf = Math.log(n/df); //Inverse document frequency.
@@ -209,19 +219,19 @@ public class Searcher {
                 pi = unique(pi);
                 pi1 = unique(pi1);
 
-                //No earlier terms.
+                //No earlier terms. Don't try to intersect with oldPostList
                 if (oldPostList.size() == 0) {
                     oldPostList = intersect(pi, pi1);
                     answer = oldPostList;
 
-                    //2 or more earlier joined terms.
+                    //2 or more earlier joined terms. Intersect the new intersection with oldPostList.
                 } else {
                     PostingsList tempPostList = intersect(pi, pi1);
                     answer = intersect(oldPostList, tempPostList);
                     oldPostList = answer;
                 }
 
-                //Odd number of terms, last term.
+                //Odd number of terms, last term. Pick out last term (odd number) and intersect with oldPostList.
                 if (i + 3 == query.size()) {
                     PostingsList pOdd = index.getPostings(query.queryterm.get(i + 2).term);
                     pOdd = unique(pOdd);
@@ -243,12 +253,10 @@ public class Searcher {
         ArrayList<Query.QueryTerm> terms = query.queryterm;
         int termSize = terms.size();
         answer = index.getPostings(terms.get(0).term);
-        int k = 1;
         for(int t =1; t<termSize; t++){
             String term = terms.get(t).term;
             PostingsList nextDocs = index.getPostings(term);
-            answer = positionalIntersect(answer, nextDocs, k);
-            k++;
+            answer = positionalIntersectNew(answer, nextDocs, 1);
         }
         return answer;
     }
@@ -321,8 +329,10 @@ public class Searcher {
                             k++;
                             l++;
                         } else if (pl2.get(l) - pl1.get(k) > posDiff) {
+                            //Next burgers
                             k++;
                         } else {
+                            //Next and
                             l++;
                         }
                     }
@@ -337,6 +347,79 @@ public class Searcher {
         }
         return answer;
     }
+
+    public PostingsList positionalIntersectNew(PostingsList p1, PostingsList p2, int posDiff) {
+        PostingsList answer = new PostingsList();
+        int size1 = p1.size();
+        int size2 = p2.size();
+        if (size1 != 0 && size2 != 0) {
+            int i = 0;
+            int j = 0;
+            while (i < size1 && j < size2) {
+                PostingsEntry e1 = p1.get(i);
+                PostingsEntry e2 = p2.get(j);
+                int doc1 = e1.docID;
+                int doc2 = e2.docID;
+                if (doc1 == doc2) {
+                    LinkedList<Integer> pl1 = e1.offsets;
+                    LinkedList<Integer> pl2 = e2.offsets;
+                    int k = 0;
+                    int l = 0;
+                    int sizepl1 = pl1.size();
+                    int sizepl2 = pl2.size();
+                    while (k < sizepl1 && l < sizepl2) {
+                        int comp1 = pl1.get(k);
+                        int comp2 = pl2.get(l);
+                        if (comp2 - comp1 == posDiff) {
+                            boolean check = false;
+                            if(answer.size()!=0) {
+                                for (int m = 0; m < answer.size(); m++) {
+                                    PostingsEntry ans = answer.get(m);
+                                        if (ans.docID==e2.docID) {
+                                            ans.offsets.add(comp2);
+                                            check=true;
+                                        }
+                                    }
+                                    if(check==false){
+                                        PostingsEntry e = new PostingsEntry();
+                                        LinkedList<Integer> tl = new LinkedList<>();
+                                        e.token = e2.token;
+                                        e.docID = e2.docID;
+                                        tl.add(comp2);
+                                        e.offsets = tl;
+                                        answer.add(e);
+                                    }
+                            }else{
+                                PostingsEntry e = new PostingsEntry();
+                                LinkedList<Integer> tl = new LinkedList<>();
+                                e.token = e2.token;
+                                e.docID = e2.docID;
+                                tl.add(comp2);
+                                e.offsets = tl;
+                                answer.add(e);
+                            }
+                            k++;
+                            l++;
+                        } else if (pl2.get(l) - pl1.get(k) > posDiff) {
+                            //Next burgers
+                            k++;
+                        } else {
+                            //Next and
+                            l++;
+                        }
+                    }
+                    i++;
+                    j++;
+                } else if (e1.docID > e2.docID) {
+                    j++;
+                } else {
+                    i++;
+                }
+            }
+        }
+        return answer;
+    }
+
 
     //Returns a list of entries of a term with only one entry per document.
     public PostingsList unique(PostingsList pList){

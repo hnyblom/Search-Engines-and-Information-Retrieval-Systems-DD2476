@@ -30,8 +30,5 @@ public class PostingsEntry implements Comparable<PostingsEntry>, Serializable {
     }
     public String getToken(){ return token;}
 
-    //
-    // YOUR CODE HERE
-    //
 }
 

@@ -8,11 +8,14 @@
 package ir;
 
 
-public class KGramPostingsEntry {
+public class KGramPostingsEntry{
     int tokenID;
+    String token;
 
-    public KGramPostingsEntry(int tokenID) {
+    public KGramPostingsEntry(int tokenID, String token) {
+
         this.tokenID = tokenID;
+        this.token = token;
     }
 
     public KGramPostingsEntry(KGramPostingsEntry other) {

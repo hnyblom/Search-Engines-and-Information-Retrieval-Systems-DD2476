@@ -44,7 +44,7 @@ public class Indexer {
 
 
     /** Constructor */
-    public Indexer( Index index, KGramIndex kgIndex, String patterns_file ) {
+    public Indexer( Index index, String patterns_file ) {
         this.index = index;
         this.kgIndex = kgIndex;
         this.patterns_file = patterns_file;
@@ -57,7 +57,6 @@ public class Indexer {
     }
 
     /** own */
-
     public static ArrayList<Integer> scores = new ArrayList();
 
     public static float getScore(int index){

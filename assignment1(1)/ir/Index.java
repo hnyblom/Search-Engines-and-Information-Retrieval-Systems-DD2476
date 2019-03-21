@@ -7,6 +7,7 @@
 
 package ir;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,6 +29,8 @@ public interface Index {
 
     /** Returns the postings for a given term. */
     public PostingsList getPostings( String token );
+
+    public HashMap<String,PostingsEntry> getTokens(int docID);
 
     /** This method is called on exit. */
     public void cleanup();

@@ -421,6 +421,19 @@ public class PersistentHashedIndex implements Index {
         }
         return postList;
     }
+    public HashMap<String,PostingsEntry> getTokens(int docID){
+        HashMap<String,PostingsEntry> result = new HashMap<String,PostingsEntry>();
+        for(Map.Entry<String, PostingsList> entry : index.entrySet()){
+            PostingsList l = entry.getValue();
+            for(int i=0;i<l.size();i++){
+                PostingsEntry e = l.get(i);
+                if(e.docID==docID){
+                    result.put(e.token, e);
+                }
+            }
+        }
+        return result;
+    }
 
     public PostingsList getPostList(Entry entry, String token){
         PostingsList postList = new PostingsList();

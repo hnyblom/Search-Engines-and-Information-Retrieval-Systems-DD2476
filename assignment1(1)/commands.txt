@@ -1,0 +1,4 @@
+sh run_tokenizer.sh token_test.txt
+
+diff -u -w tokenizer_result.txt token_test_tokenized_ok.txt 
+

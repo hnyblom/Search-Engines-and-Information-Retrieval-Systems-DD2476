@@ -16,8 +16,8 @@ import java.io.File;
 public class Engine {
 
     /** The inverted index. */
-    //Index index = new HashedIndex();
-    Index index = new PersistentHashedIndex();
+    Index index = new HashedIndex();
+    //Index index = new PersistentHashedIndex();
 
     /** The indexer creating the search index. */
     Indexer indexer;
@@ -62,8 +62,8 @@ public class Engine {
      */
     public Engine( String[] args ) {
         decodeArgs( args );
-        indexer = new Indexer( index, kgIndex, patterns_file );
-        searcher = new Searcher( index, kgIndex );
+        indexer = new Indexer( index, patterns_file );
+        searcher = new Searcher( index);
         gui = new SearchGUI( this );
         gui.init();
         /* 
