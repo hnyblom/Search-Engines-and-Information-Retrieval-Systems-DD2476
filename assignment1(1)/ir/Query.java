@@ -153,7 +153,7 @@ public class Query {
         //Calculate document vector
         //Sum up document vectors of all relevant documents
         double relevantSum =0;
-        Integer[] documents = index.docNames.keySet().toArray(new Integer[0]);
+        Integer[] documents = index.docNames.keySet().toArray(new Integer[0]);//Can remove
         //For all relevant documents
         for(int n=0;n<docIsRelevant.length;n++){
             if(docIsRelevant[n]){

@@ -75,7 +75,7 @@ public class Searcher {
                     dupCount.put(term, 1);
                 }
             }
-            for(Map.Entry<Object, Integer> entry : dupCount.entrySet()){
+            for(Map.Entry<Object, Integer> entry : dupCount.entrySet()){ //Calculate query tf-idf
                 String queryTerm = entry.getKey().toString();//ta bort tostring
                 int tf = entry.getValue();
                 int df = unique(index.getPostings(queryTerm)).size();
@@ -154,9 +154,9 @@ public class Searcher {
         int tf = duplicates(entry.token, entry.docID);
 
         //len.d - Check number of words in the document
-        //int length = index.docLengths.get(entry.docID);
+        int length = index.docLengths.get(entry.docID);
 
-        return (tf*idf);
+        return (tf*(idf/length));
 
         //entry.score =+ (duplicateVal*idf)/length;
     }

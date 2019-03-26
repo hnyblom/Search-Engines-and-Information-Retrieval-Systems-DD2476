@@ -90,7 +90,9 @@ public class Indexer {
                         e.printStackTrace();
                     }*/
 
-                    if ( docID%1000 == 0 ) System.err.println( "Indexed " + docID + " files" );
+                    if ( docID%1000 == 0 ){
+                        System.err.println( "Indexed " + docID + " files" );
+                    }
                     try {
                         Reader reader = new InputStreamReader( new FileInputStream(f), StandardCharsets.UTF_8 );
                         Tokenizer tok = new Tokenizer( reader, true, false, true, patterns_file );
@@ -136,8 +138,8 @@ public class Indexer {
      */
     public void insertIntoIndex( int docID, String token, LinkedList<Integer> offsets ) {
         index.insert( token, docID, offsets );
-        if (kgIndex != null)
-            kgIndex.insert(token);
+        //if (kgIndex != null)
+            //kgIndex.insert(token);
     }
 }
 
